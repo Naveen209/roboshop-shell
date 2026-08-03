@@ -35,7 +35,7 @@ then
 else
     echo -e "roboshop $G user created $N"
 fi
-mkdir -p /app &>>"$LOGFILE"
+mkdir /app &>>"$LOGFILE"
 if [ $? -ne 0 ]
 then
     echo -e "$Y Directory already exists $N"
