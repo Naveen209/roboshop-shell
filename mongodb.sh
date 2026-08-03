@@ -10,7 +10,7 @@ N="\e[0m"
 Y="\e[33m"
 message=
 VALIDATE() {
-    if [ $USERID -ne 0 ]
+    if [ $1 -ne 0 ]
     then
          echo -e "$2 $R FAILURE $N "
     else
