@@ -9,11 +9,11 @@ G="\e[32m"
 N="\e[0m"
 Y="\e[33m"
 VALIDATE() {
-    if [ $? -ne 0 ]
+    if [ $1 -ne 0 ]
     then
-         echo -e "$2 $R FAILURE $N "
+         echo -e "$2 $R FAILURE $N"
     else
-        echo -e "$2 $G SUCCESS $N "
+        echo -e "$2 $G SUCCESS $N"
     fi 
 }
 if [ $USERID -ne 0 ]
@@ -43,6 +43,7 @@ else
 fi
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>"$LOGFILE"
 cd /app
+rm -rf *
 unzip /tmp/catalogue.zip &>>"$LOGFILE"
 VALIDATE $? "Unzipping artifact"
 npm install &>>"$LOGFILE"
@@ -50,10 +51,12 @@ VALIDATE $? "Installing dependencies"
 cp /root/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>>"$LOGFILE"
 VALIDATE $? "Copy Catalogue service"
 systemctl daemon-reload
+systemctl enable catalogue
+systemctl start catalogue
 systemctl status catalogue &>>"$LOGFILE"
 cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>"$LOGFILE"
 VALIDATE $? "Copying mongodb repos"
-yum install mongodb-mongosh -y
+yum install mongodb-mongosh -y &>>"$LOGFILE"
 VALIDATE $? "Installing mongosh"
 mongosh --host <MONGODB-IP> </app/schema/catalogue.js &>>"$LOGFILE"
 VALIDATE $? "Loading DB schema"
