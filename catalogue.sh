@@ -37,15 +37,15 @@ fi
 mkdir -p /app &>>"$LOGFILE"
 if [ $? -ne 0]
 then
-    echo -e "$Y User already exists $N"
+    echo -e "$Y Directory already exists $N"
 else
-    echo -e "/app $G directory created $N"
+    echo -e "/app $G Directory created $N"
 fi
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>"$LOGFILE"
 cd /app
 unzip /tmp/catalogue.zip &>>"$LOGFILE"
 VALIDATE $? "Unzipping artifact"
-npm install "$LOGFILE"
+npm install &>>"$LOGFILE"
 VALIDATE $? "Installing dependencies"
 cp /root/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>>"$LOGFILE"
 VALIDATE $? "Copy Catalogue service"
