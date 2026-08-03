@@ -12,6 +12,7 @@ VALIDATE() {
     if [ $1 -ne 0 ]
     then
          echo -e "$2 $R FAILURE $N"
+         exit 1
     else
         echo -e "$2 $G SUCCESS $N"
     fi 
@@ -43,6 +44,7 @@ else
 fi
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>"$LOGFILE"
 cd /app
+VALIDATE $? "Changing directory"
 rm -rf *
 unzip /tmp/catalogue.zip &>>"$LOGFILE"
 VALIDATE $? "Unzipping artifact"
