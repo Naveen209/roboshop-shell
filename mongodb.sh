@@ -8,15 +8,19 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 Y="\e[33m"
-message=
 VALIDATE() {
-    if [ $1 -ne 0 ]
+    if [ $? -ne 0 ]
     then
          echo -e "$2 $R FAILURE $N "
     else
         echo -e "$2 $G SUCCESS $N "
     fi 
 }
+if [ $USERID -ne 0 ]
+then
+    echo -e "$R Please run the script as root user $N"
+    exit 1
+fi
 cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>"$LOGFILE"
 VALIDATE $? "Copying mongodb repos"
 yum install -y mongodb-org &>>"$LOGFILE"
