@@ -17,7 +17,7 @@ VALIDATE() {
         echo -e "$2 $G SUCCESS $N "
     fi 
 }
-cp /c/Devops/repos/roboshop-shell-script/mongo.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>"$LOGFILE"
+cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>"$LOGFILE"
 VALIDATE $? "Copying mongodb repos"
 yum install -y mongodb-org &>>"$LOGFILE"
 VALIDATE $? "Installing mongodb"
