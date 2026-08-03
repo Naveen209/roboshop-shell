@@ -28,14 +28,14 @@ VALIDATE $? "Enable nodejs:20"
 yum install nodejs -y &>>"$LOGFILE"
 VALIDATE $? "Installing nodejs:20"
 useradd roboshop &>>"$LOGFILE"
-if [ $? -ne 0]
+if [ $? -ne 0 ]
 then
     echo -e "$Y User already exists $N"
 else
     echo -e "roboshop $G user created $N"
 fi
 mkdir -p /app &>>"$LOGFILE"
-if [ $? -ne 0]
+if [ $? -ne 0 ]
 then
     echo -e "$Y Directory already exists $N"
 else
