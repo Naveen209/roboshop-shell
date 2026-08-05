@@ -43,23 +43,24 @@ else
     mkdir /app &>>"$LOGFILE"
     echo -e "/app $G Directory created $N"
 fi
-curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>"$LOGFILE"
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>"$LOGFILE"
+VALIDATE $? "Downloading artifact"
 cd /app
 VALIDATE $? "Changing directory"
-rm -rf *
-unzip /tmp/catalogue.zip &>>"$LOGFILE"
+rm -rf * &>>"$LOGFILE"
+unzip /tmp/user.zip &>>"$LOGFILE"
 VALIDATE $? "Unzipping artifact"
 npm install &>>"$LOGFILE"
 VALIDATE $? "Installing dependencies"
-cp /root/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>>"$LOGFILE"
-VALIDATE $? "Copy Catalogue service"
+cp /root/roboshop-shell/user.service /etc/systemd/system/user.service &>>"$LOGFILE"
+VALIDATE $? "Copy user service"
 systemctl daemon-reload
-systemctl enable catalogue
-systemctl start catalogue
-systemctl status catalogue &>>"$LOGFILE"
+systemctl enable user
+systemctl start user
+systemctl status user &>>"$LOGFILE"
 cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>"$LOGFILE"
 VALIDATE $? "Copying mongodb repos"
 yum install mongodb-mongosh -y &>>"$LOGFILE"
 VALIDATE $? "Installing mongosh"
-mongosh --host <MONGODB-IP> </app/schema/catalogue.js &>>"$LOGFILE"
+mongosh --host <MONGODB-IP> </app/schema/user.js &>>"$LOGFILE"
 VALIDATE $? "Loading DB schema"

@@ -19,7 +19,7 @@ VALIDATE() {
 }
 if [ $USERID -ne 0 ]
 then
-    echo -e "$R Please run the script as root user $N"
+    echo -e "$R Please run the script as root cart $N"
     exit 1
 fi
 yum module disable nodejs -y &>>"$LOGFILE"
@@ -43,23 +43,21 @@ else
     mkdir /app &>>"$LOGFILE"
     echo -e "/app $G Directory created $N"
 fi
-curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>"$LOGFILE"
+curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>>"$LOGFILE"
 cd /app
 VALIDATE $? "Changing directory"
 rm -rf *
-unzip /tmp/catalogue.zip &>>"$LOGFILE"
+unzip /tmp/cart.zip &>>"$LOGFILE"
 VALIDATE $? "Unzipping artifact"
 npm install &>>"$LOGFILE"
 VALIDATE $? "Installing dependencies"
-cp /root/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>>"$LOGFILE"
-VALIDATE $? "Copy Catalogue service"
+cp /root/roboshop-shell/cart.service /etc/systemd/system/cart.service &>>"$LOGFILE"
+VALIDATE $? "Copy cart service"
 systemctl daemon-reload
-systemctl enable catalogue
-systemctl start catalogue
-systemctl status catalogue &>>"$LOGFILE"
+systemctl enable cart
+systemctl start cart
+systemctl status cart &>>"$LOGFILE"
 cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>"$LOGFILE"
 VALIDATE $? "Copying mongodb repos"
 yum install mongodb-mongosh -y &>>"$LOGFILE"
 VALIDATE $? "Installing mongosh"
-mongosh --host <MONGODB-IP> </app/schema/catalogue.js &>>"$LOGFILE"
-VALIDATE $? "Loading DB schema"
