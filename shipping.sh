@@ -19,7 +19,7 @@ VALIDATE() {
 }
 if [ $USERID -ne 0 ]
 then
-    echo -e "$R Please run the script as root shipping $N"
+    echo -e "$R Please run the script as root user $N"
     exit 1
 fi
 dnf install java-17-openjdk java-17-openjdk-devel maven -y
@@ -45,7 +45,6 @@ VALIDATE $? "Changing directory"
 rm -rf *
 unzip /tmp/shipping.zip &>>"$LOGFILE"
 VALIDATE $? "Unzipping artifact"
-cd /app
 mvn clean package &>>"$LOGFILE"
 VALIDATE $? "installing dependencies"
 mv target/shipping-1.0.jar shipping.jar &>>"$LOGFILE"
