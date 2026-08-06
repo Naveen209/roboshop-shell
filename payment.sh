@@ -44,7 +44,7 @@ cd /app &>>"$LOGFILE"
 rm -rf *
 unzip /tmp/payment.zip &>>"$LOGFILE"
 VALIDATE $? "Unzipping artifact"
-pip3.6 install -r requirements.txt &>>"$LOGFILE"
+pip3 install -r requirements.txt &>>"$LOGFILE"
 VALIDATE $? "Installing dependencies"
 cp /root/roboshop-shell/payment.service /etc/systemd/system/payment.service &>>"$LOGFILE"
 VALIDATE $? "Copying payment services"
