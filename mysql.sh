@@ -52,3 +52,10 @@ then
 else
     echo -e "MySQL Root Password Already Set... $Y SKIPPING $N"
 fi
+mysql -uroot -pRoboShop@1 <<EOF &>>"$LOGFILE"
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'RoboShop@1';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EOF
+
+VALIDATE $? "Configuring Remote Root Access"

@@ -21,7 +21,7 @@ then
     echo -e "$R Please run the script as root user $N"
     exit 1
 fi
-yum install python36 gcc python3-devel -y &>>"$LOGFILE"
+yum install python3 python3-pip -y &>>"$LOGFILE"
 VALIDATE $? "Installing Python"
 if id roboshop &>/dev/null
 then
