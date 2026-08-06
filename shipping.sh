@@ -58,9 +58,14 @@ systemctl start shipping &>>"$LOGFILE"
 VALIDATE $? "starting shipping service"
 systemctl status shipping &>>"$LOGFILE"
 VALIDATE $? "checking shipping service status"
-cp /root/roboshop-shell/mysql.repo /etc/yum.repos.d/mysql.repo
-dnf install mysql-community-client -y &>>"$LOGFILE"
+cp /root/roboshop-shell/mysql.repo /etc/yum.repos.d/mysql.repo &>>"$LOGFILE"
+VALIDATE $? "Copying MySQL repo"
+
+yum install mysql-community-client -y &>>"$LOGFILE"
+VALIDATE $? "Installing MySQL client"
+
 mysql -h mysql.roboshopservice.store -u root -pRoboShop@1 </app/schema/shipping.sql &>>"$LOGFILE"
 VALIDATE $? "Loading schema"
+
 systemctl restart shipping &>>"$LOGFILE"
-VALIDATE $? "restart shipping service"
+VALIDATE $? "Restarting shipping service"
