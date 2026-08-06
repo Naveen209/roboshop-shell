@@ -22,7 +22,7 @@ then
     echo -e "$R Please run the script as root user $N"
     exit 1
 fi
-dnf install java-17-openjdk java-17-openjdk-devel maven -y
+yum install java-17-openjdk java-17-openjdk-devel maven -y &>>"$LOGFILE"
 VALIDATE $? "Installing java-17 & maven"
 if id roboshop &>/dev/null
 then
