@@ -62,5 +62,5 @@ cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>"$LO
 VALIDATE $? "Copying mongodb repos"
 yum install mongodb-mongosh -y &>>"$LOGFILE"
 VALIDATE $? "Installing mongosh"
-mongosh --host <MONGODB-IP> </app/schema/user.js &>>"$LOGFILE"
+mongosh --host mongodb.roboshopservice.store</app/schema/user.js &>>"$LOGFILE"
 VALIDATE $? "Loading DB schema"

@@ -5,13 +5,13 @@ Description=Payment Service
 User=root
 WorkingDirectory=/app
 
-Environment=CART_HOST=<Cart Server IP or Hostname>
+Environment=CART_HOST=cart.roboshopservice.store
 Environment=CART_PORT=8080
 
-Environment=USER_HOST=<User Server IP or Hostname>
+Environment=USER_HOST=user.roboshopservice.store
 Environment=USER_PORT=8080
 
-Environment=AMQP_HOST=<RabbitMQ Server IP or Hostname>
+Environment=AMQP_HOST=rabbitmq.roboshopservice.store
 Environment=AMQP_USER=roboshop
 Environment=AMQP_PASS=roboshop123
 

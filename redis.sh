@@ -22,13 +22,13 @@ then
     echo -e "$R Please run the script as root user $N"
     exit 1
 fi
-dnf install redis -y
+dnf install redis -y &>>"$LOGFILE"
 VALIDATE $? "Port binding"
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>>"$LOGFILE"
 VALIDATE $? "Port binding" 
 systemctl enable redis &>>"$LOGFILE"
 VALIDATE $? "Enable redis" 
-systemctl start redis
+systemctl start redis &>>"$LOGFILE"
 VALIDATE $? "Start redis"
 systemctl status redis &>>"$LOGFILE"
-VALIDATE $? "Status redis" 
+VALIDATE $? "Status redis" &>>"$LOGFILE"
