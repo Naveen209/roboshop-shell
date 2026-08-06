@@ -43,7 +43,7 @@ else
     mkdir /app &>>"$LOGFILE"
     echo -e "/app $G Directory created $N"
 fi
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>"$LOGFILE"
+curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>>"$LOGFILE"
 VALIDATE $? "Downloading artifact"
 cd /app
 VALIDATE $? "Changing directory"
@@ -62,5 +62,5 @@ cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>"$LO
 VALIDATE $? "Copying mongodb repos"
 yum install mongodb-mongosh -y &>>"$LOGFILE"
 VALIDATE $? "Installing mongosh"
-mongosh --host mongodb.roboshopservice.store</app/schema/user.js &>>"$LOGFILE"
+mongosh --host mongodb.roboshopservice.store </app/schema/user.js &>>"$LOGFILE"
 VALIDATE $? "Loading DB schema"

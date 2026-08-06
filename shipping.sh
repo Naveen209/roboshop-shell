@@ -39,7 +39,7 @@ else
     mkdir /app &>>"$LOGFILE"
     echo -e "/app $G Directory created $N"
 fi
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>"$LOGFILE"
+curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip &>>"$LOGFILE"
 cd /app
 VALIDATE $? "Changing directory"
 rm -rf *
