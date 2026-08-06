@@ -64,8 +64,17 @@ VALIDATE $? "Copying MySQL repo"
 yum install mysql-community-client -y &>>"$LOGFILE"
 VALIDATE $? "Installing MySQL client"
 
-mysql -h mysql.roboshopservice.store -u root -pRoboShop@1 </app/schema/shipping.sql &>>"$LOGFILE"
-VALIDATE $? "Loading schema"
+mysql -h mysql.roboshopservice.store -uroot -pRoboShop@1 < /app/db/schema.sql &>>"$LOGFILE"
+VALIDATE $? "Loading Schema"
+
+mysql -h mysql.roboshopservice.store -uroot -pRoboShop@1 < /app/db/app-user.sql &>>"$LOGFILE"
+VALIDATE $? "Loading App User"
+
+mysql -h mysql.roboshopservice.store -uroot -pRoboShop@1 < /app/db/master-data.sql &>>"$LOGFILE"
+VALIDATE $? "Loading Master Data"
+
+systemctl restart shipping &>>"$LOGFILE"
+VALIDATE $? "Restarting shipping service"
 
 systemctl restart shipping &>>"$LOGFILE"
 VALIDATE $? "Restarting shipping service"
