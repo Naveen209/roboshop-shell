@@ -48,7 +48,7 @@ cd /app
 VALIDATE $? "Changing directory"
 rm -rf *
 unzip /tmp/cart.zip &>>"$LOGFILE"
-VALIDATE $? "Unzipping artifact"
+VALIDATE $? "Unzipping artifact"    
 npm install &>>"$LOGFILE"
 VALIDATE $? "Installing dependencies"
 cp /root/roboshop-shell/cart.service /etc/systemd/system/cart.service &>>"$LOGFILE"
